@@ -7,7 +7,7 @@ object Reader {
     for (line <- bufferedSource.getLines) {
       var cols = line.split(",").map(_.trim)
       // do whatever you want with the columns here
-      val name = "${cols(0)}, ${cols(1)}"
+      val name = (s"${cols(0)}, ${cols(1)}")
       val classes = List(cols(2), cols(3), cols(4), cols(5), cols(6))
       val matches = Map(name -> classes)
       println(matches)
@@ -15,7 +15,7 @@ object Reader {
   }
 
   def main(args: Array[String]): Unit = {
-    val filename = "FileAndFileReader/Dummy Schedule.csv"
+    val filename = "src/FileAndFileReader/Dummy Schedule.csv"
     val contents = convertFile(filename)
     println(contents)
   }
