@@ -146,15 +146,22 @@ object Reader {
     }
   }
 
-  def createCohort(filename): Unit = {
+  def generateSchedule
 
-  }
 
   def main(args: Array[String]): Unit = {
     val filename = "src/FileAndFileReader/Dummy Schedule.csv"
-    val seventhGrade = findSeventhGrade(filename)
     val seventhGradeBand = splitSeventhGradeBand(filename)
+    val seventhGradeBandA = new Cohort (seventhGradeBand(0))
+    val seventhGradeBandB = new Cohort (seventhGradeBand(1))
     val seventhGradeMusic = splitSeventhGradeMusic(filename)
-    println(seventhGradeMusic)
+    val seventhGradeMusicA = new Cohort(seventhGradeMusic(0))
+    val seventhGradeMusicB = new Cohort(seventhGradeMusic(1))
+    val eighthGradeBand = splitEighthGradeBand(filename)
+    val eighthGradeBandA = new Cohort(eighthGradeBand(0))
+    val eighthGradeBandB = new Cohort(eighthGradeBand(1))
+    val eighthGradeMusic = splitSeventhGradeMusic(filename)
+    val eighthGradeMusicA = new Cohort(eighthGradeMusic(0))
+    val eighthGradeMusicB = new Cohort(eighthGradeMusic(1))
   }
 }
