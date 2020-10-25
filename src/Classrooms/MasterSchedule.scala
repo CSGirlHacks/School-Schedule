@@ -1,5 +1,0 @@
-package Classrooms
-
-class MasterSchedule {
-
-}
