@@ -2,17 +2,6 @@ package FileAndFileReader
 
 object Reader {
 
-  def convertFile(filename: String): Unit = {
-    val bufferedSource = io.Source.fromFile(filename)
-    for (line <- bufferedSource.getLines) {
-      val cols = line.split(",").map(_.trim)
-      // do whatever you want with the columns here
-      val name = (s"${cols(0)}, ${cols(1)}")
-      val classes = List(cols(2), cols(3), cols(4), cols(5), cols(6))
-      val matches = Map(name -> classes)
-    }
-  }
-
   def findSeventhGrade(filename:String): List[String] = {
     val bufferedSource = io.Source.fromFile(filename)
     var seventhGrade: String = ""
@@ -31,7 +20,7 @@ object Reader {
     seventhGrade.split(",").toList
   }
 
-  def splitSeventhGradeBand(filename:String): List[String] = {
+  def splitSeventhGradeBand(filename:String): List[List[String]] = {
     val seventhGrade = findSeventhGrade(filename)
     val bufferedSource = io.Source.fromFile(filename)
     var band = ""
@@ -51,10 +40,11 @@ object Reader {
         }
       }
     }
-    band.split(",").toList
+    val seventhBand = band.split(",").toList
+    splitIfNeeded(18, seventhBand)
   }
 
-  def splitSeventhGradeMusic(filename:String): List[String] = {
+  def splitSeventhGradeMusic(filename:String): List[List[String]] = {
     val seventhGrade = findSeventhGrade(filename)
     val bufferedSource = io.Source.fromFile(filename)
     var music = ""
@@ -74,7 +64,8 @@ object Reader {
         }
       }
     }
-    music.split(",").toList
+    val seventhMusic = music.split(",").toList
+    splitIfNeeded(18, seventhMusic)
   }
 
   def findEighthGrade(filename:String): List[String] = {
@@ -95,7 +86,7 @@ object Reader {
     eighthGrade.split(",").toList
   }
 
-  def splitEighthGradeBand(filename:String): List[String] = {
+  def splitEighthGradeBand(filename:String): List[List[String]] = {
     val eighthGrade = findEighthGrade(filename)
     val bufferedSource = io.Source.fromFile(filename)
     var band = ""
@@ -115,10 +106,11 @@ object Reader {
         }
       }
     }
-    band.split(",").toList
+    val eighthBand = band.split(",").toList
+    splitIfNeeded(18, eighthBand)
   }
 
-  def splitEighthGradeMusic(filename:String): List[String] = {
+  def splitEighthGradeMusic(filename:String): List[List[String]] = {
     val eighthGrade = findEighthGrade(filename)
     val bufferedSource = io.Source.fromFile(filename)
     var music = ""
@@ -138,12 +130,28 @@ object Reader {
         }
       }
     }
-    music.split(",").toList
+    val eighthMusic = music.split(",").toList
+    splitIfNeeded(18, eighthMusic)
+  }
+
+  def splitIfNeeded(maxSize:Int, classList: List[String]) : List[List[String]] = {
+    if (classList.length > maxSize) {
+      val splitIndex = classList.length/2
+      val classA = classList.take(splitIndex)
+      val classB = classList.drop(splitIndex)
+      List(classA, classB)
+    }
+    else{
+      List(classList)
+    }
+  }
+
+  def createCohort(filename): Unit = {
+
   }
 
   def main(args: Array[String]): Unit = {
     val filename = "src/FileAndFileReader/Dummy Schedule.csv"
-    val contents = convertFile(filename)
     val seventhGrade = findSeventhGrade(filename)
     val seventhGradeBand = splitSeventhGradeBand(filename)
     val seventhGradeMusic = splitSeventhGradeMusic(filename)
