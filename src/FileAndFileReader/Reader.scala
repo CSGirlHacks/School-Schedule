@@ -1,5 +1,7 @@
 package FileAndFileReader
 
+import FileAndFileReader.Reader.splitIfNeeded
+
 object Reader {
 
   def findSeventhGrade(filename:String): List[String] = {
@@ -87,7 +89,7 @@ object Reader {
   }
 
   def splitEighthGradeBand(filename:String): List[List[String]] = {
-    val eighthGrade = findEighthGrade(filename)
+    val eighthGrade = findSeventhGrade(filename)
     val bufferedSource = io.Source.fromFile(filename)
     var band = ""
     for (line <- bufferedSource.getLines) {
@@ -101,11 +103,11 @@ object Reader {
           if (name == allNames) {
             if (classes(3) == "BND") {
               band = band + name + ","
+              }
             }
           }
         }
       }
-    }
     val eighthBand = band.split(",").toList
     splitIfNeeded(18, eighthBand)
   }
@@ -146,7 +148,6 @@ object Reader {
     }
   }
 
-  def generateSchedule
 
 
   def main(args: Array[String]): Unit = {
@@ -163,5 +164,6 @@ object Reader {
     val eighthGradeMusic = splitSeventhGradeMusic(filename)
     val eighthGradeMusicA = new Cohort(eighthGradeMusic(0))
     val eighthGradeMusicB = new Cohort(eighthGradeMusic(1))
+    eighthGradeBandA.getClasses(filename)
   }
 }
