@@ -2,7 +2,7 @@ package FileAndFileReader
 
 class Cohort (classList: List[String]) {
 
-  def getNames(filename:String) : List[String] = {
+  def getNames(filename: String): List[String] = {
     classList
   }
 
@@ -23,18 +23,16 @@ class Cohort (classList: List[String]) {
         }
       }
     }
-   listOfClasses
+    listOfClasses
   }
 
-  def getSchedule (filename: String) : Unit = {
+  def getSchedule(filename: String): Unit = {
     val classes = getClasses(filename)
     val classSet = List(classes(0), classes(1), classes(2), classes(3), classes(4))
     val names = getNames(filename)
-    val classNames = Map (names -> classSet)
+    val classNames = Map(names -> classSet)
     println(classNames)
   }
-
-  def remixSchedule (Map[List[String], List[String]]) :
 }
 
 

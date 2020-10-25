@@ -1,6 +1,7 @@
 package FileAndFileReader
 
 import FileAndFileReader.Reader.splitIfNeeded
+import scala.util.Random
 
 object Reader {
 
@@ -166,7 +167,13 @@ object Reader {
     listOfCohorts
   }
 
-
+def remixSchedule (input: Iterable[List[String]]) : Unit = {
+    val indexList = Array(0,1, 2, 3, 4)
+  val rand = new Random(System.currentTimeMillis())
+  val random_index = rand.nextInt(indexList.length)
+  val result = indexList(random_index)
+  println(result)
+  }
 
   def main(args: Array[String]): Unit = {
     val arrayOfCohorts = generateCohorts("src/FileAndFileReader/Dummy Schedule.csv")
