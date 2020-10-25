@@ -1,5 +1,7 @@
 package FileAndFileReader
 
+import FileAndFileReader.Reader.splitIfNeeded
+
 object Reader {
 
   def findSeventhGrade(filename:String): List[String] = {
@@ -79,7 +81,7 @@ object Reader {
       val matches = Map(name -> classes)
       for (entry <- matches.values){
         if (entry(1) == "MTH8") {
-          eighthGrade = eighthGrade + name + ", "
+          eighthGrade = eighthGrade + name + ","
         }
       }
     }
@@ -101,11 +103,11 @@ object Reader {
           if (name == allNames) {
             if (classes(3) == "BND") {
               band = band + name + ","
+              }
             }
           }
         }
       }
-    }
     val eighthBand = band.split(",").toList
     splitIfNeeded(18, eighthBand)
   }
@@ -146,10 +148,7 @@ object Reader {
     }
   }
 
-  def generateSchedule
-
-
-  def main(args: Array[String]): Unit = {
+  def generateCohorts(filename: String): List[Cohort] = {
     val filename = "src/FileAndFileReader/Dummy Schedule.csv"
     val seventhGradeBand = splitSeventhGradeBand(filename)
     val seventhGradeBandA = new Cohort (seventhGradeBand(0))
@@ -160,8 +159,18 @@ object Reader {
     val eighthGradeBand = splitEighthGradeBand(filename)
     val eighthGradeBandA = new Cohort(eighthGradeBand(0))
     val eighthGradeBandB = new Cohort(eighthGradeBand(1))
-    val eighthGradeMusic = splitSeventhGradeMusic(filename)
+    val eighthGradeMusic = splitEighthGradeMusic(filename)
     val eighthGradeMusicA = new Cohort(eighthGradeMusic(0))
     val eighthGradeMusicB = new Cohort(eighthGradeMusic(1))
+    val listOfCohorts = List(seventhGradeBandA, seventhGradeBandB, seventhGradeMusicA, seventhGradeMusicB, eighthGradeBandA, eighthGradeBandB, eighthGradeMusicA, eighthGradeMusicB)
+    listOfCohorts
+  }
+
+
+
+  def main(args: Array[String]): Unit = {
+    val arrayOfCohorts = generateCohorts("src/FileAndFileReader/Dummy Schedule.csv")
+    for (cohort <- arrayOfCohorts)
+      cohort.getSchedule("src/FileAndFileReader/Dummy Schedule.csv")
   }
 }
